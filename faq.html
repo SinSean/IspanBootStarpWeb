@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
+
+  <!-- OwlCarousel -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+
+  <style>
+    /* 導覽列 */
+    /* 1. 全螢幕輪播設定 */
+    .carousel,
+    .carousel-inner,
+    .carousel-item,
+    .carousel-item img {
+      height: 100vh;
+    }
+
+    .carousel-item img {
+      object-fit: cover;
+    }
+
+    /* 2. 導覽列自定義 */
+    .custom-navbar {
+      /* background-color: red !important; */
+      /* 背景完全透明 */
+      padding: 20px 0;
+      /* 增加一點上下間距，讓它更大氣 */
+      transition: 0.3s;
+      /* 之後若想做滾動變色可以有過渡效果 */
+    }
+
+    /* 3. 調整文字大小與顏色 */
+    .custom-navbar .nav-link {
+      color: #333 !important;
+      /* 深灰色文字 */
+      font-size: 1.25rem;
+      /* 字體變大 (約 20px) */
+      font-weight: 500;
+      /* 加粗一點點 */
+    }
+
+    /* 調整 Logo 大小與按鈕顏色 */
+    .custom-navbar .navbar-brand img {
+      height: 50px;
+      /* Logo 也跟著放大一點 */
+    }
+
+    /* 漢堡選單按鈕顏色*/
+    .navbar-toggler {
+      border-color: rgba(227, 24, 24, 0.1);
+      border-width: 3px !important;
+      /* 改為 3px 或是你想要的寬度 */
+      border-radius: 8px;
+      /* 調整圓角程度，0 為直角 */
+    }
+
+    /* 把大輪播長條形改成圓形 */
+    .carousel-indicators [data-bs-target] {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      /* 變成圓形 */
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    /* 四宮格圖 */
+    .custom-ratio {
+      /* 電腦版四張並排時，可以用 3:4 或 9:16 的長方比例 */
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      transition: filter 0.3s ease;
+      filter: brightness(0.8);
+    }
+
+    /* 當寬度小於 768px (手機版) */
+    .custom-ratio {
+      /* 2x2 佈局下，建議 16:9 或是 2:1 會比較好看 */
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      transition: filter 0.6s ease;
+      filter: brightness(0.85);
+    }
+
+    /* 手機版 (寬度 < 768px) */
+    @media (max-width: 767.98px) {
+      .custom-ratio {
+        /* 變成直向 100% 時，比例可以稍微調高一點點 */
+        aspect-ratio: 4 / 3;
+      }
+    }
+
+    .item-link:hover .custom-ratio {
+      filter: brightness(1.1);
+      cursor: pointer;
+    }
+
+    /* 只有在電腦版 (992px以上) 啟用 Hover 功能 */
+    @media (min-width: 992px) {
+      .nav-item.dropdown .dropdown-menu {
+        display: block;
+        /* 預設維持 block 但隱藏 */
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.3s ease;
+        transform: translateY(10px);
+        /* 稍微往下移一點點 */
+      }
+
+      .nav-item.dropdown:hover .dropdown-menu {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+        /* 移回原位，產生浮現感 */
+      }
+    }
+
+    /* 導覽列背景 */
+    .page-header {
+      /* 設定高度：40vh 代表螢幕高度的 40%，可依需求調整如 400px */
+      height: 540px;
+
+      /* 關鍵：蓋版黑幕 + 背景圖片 */
+      /* linear-gradient 第一個 rgba 是黑幕顏色與透明度 (0.5 = 50% 透明) */
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("https://picsum.photos/id/684/1920/1080");
+
+      /* 背景圖優化設定 */
+      background-size: cover;
+      background-position: center;
+      background-attachment: scroll;
+      /* 若想做視差效果可改為 fixed */
+
+      /* 處理固定導覽列遮擋問題：因為 nav 有 fixed-top，這裡要推開導覽列的高度 */
+      padding-top: 90px;
+    }
+
+    .page-title {
+      font-size: 4rem;
+      /* 大標題尺寸 */
+      font-weight: 700;
+      /* 加粗 */
+      letter-spacing: 0.8rem;
+      /* 字母間距增加，展現時尚感 */
+      text-transform: uppercase;
+      /* 強制大寫 */
+    }
+
+    /* 手機版微調 */
+    @media (max-width: 768px) {
+      .page-header {
+        height: 300px;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        letter-spacing: 0.4rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <!-- 導覽列 -->
+    <nav class="navbar navbar-expand-lg custom-navbar navbar-light fixed-top bg-secondary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="./index.html">
+          <img style="height: 40px; width: auto"
+            src="https://bs-intl.jp/wp-prod/wp-content/themes/bs-intl/dist/assets/img/logo-320272bc.webp" />
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                OUR BUSINESS
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item" href="./fashion.html">FASHION</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="./sports.html">SPORTS</a>
+                </li>
+                <li><a class="dropdown-item" href="./art.html">ART</a></li>
+                <li><a class="dropdown-item" href="./style.html">LIFESTYLE</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="./brand-list.html">BRAND LIST</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./product-list.html">ONLINE STORE</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./company.html">COMPANY</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./faq.html">FAQ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./contact.html">CONTACT</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./sign-in/index.html" style="color: rgb(150, 3, 3) !important;">管理系統</a>
+            </li>
+          </ul>
+
+          <div class="ms-lg-auto mt-2 mt-lg-0">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                多國語言
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#">繁體中文</a></li>
+                <li><a class="dropdown-item" href="#">簡體中文</a></li>
+                <li><a class="dropdown-item" href="#">英文</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 導覽列背景 & FASHION字樣 -->
+    <section class="page-header d-flex align-items-center justify-content-center text-white">
+      <div class="container text-center">
+        <h1 class="page-title">FAQ</h1>
+      </div>
+    </section>
+
+    <!-- 麵包屑 -->
+    <nav style="--bs-breadcrumb-divider: &quot;>&quot;" aria-label="breadcrumb">
+      <ol class="breadcrumb small d-flex ms-5">
+        <li class="breadcrumb-item">
+          <a href="../index.html" class="text-decoration-none text-secondary">Home</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">FAQ</li>
+      </ol>
+    </nav>
+    <!-- FAQ MAIN -->
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-12">
+          <div class="accordion accordion-flush" id="accordionFAQ">
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading-1">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse-1">
+                  Q1：請問店家的營業時間為何？
+                </button>
+              </h2>
+              <div id="collapse-1" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                <div class="accordion-body">我們的營業時間為週一至週五 10:00 - 21:00，週六及週日為 11:00 - 22:00。如遇國定假日調整，將提前於官網公告。</div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading-2">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse-2">
+                  Q2：現場消費是否可以刷卡或使用電子支付？
+                </button>
+              </h2>
+              <div id="collapse-2" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                <div class="accordion-body">我們支援各大銀行信用卡、Apple Pay、Google Pay 以及 Line Pay 支付。目前暫不支援街口支付。</div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading-3">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse-3">
+                  Q3：可以攜帶寵物入店嗎？
+                </button>
+              </h2>
+              <div id="collapse-3" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                <div class="accordion-body">本門市為寵物友善空間，歡迎攜帶寵物（需繫牽繩或放置於寵物籃內），請確保寵物不會影響到其他顧客。</div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading-4">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse-4">
+                  Q4：請問有提供免費停車位嗎？
+                </button>
+              </h2>
+              <div id="collapse-4" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                <div class="accordion-body">凡店內消費滿 500 元，即可折抵特約停車場 1 小時停車費，每日最高折抵 3 小時。</div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading-5">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse-5">
+                  Q5：如何辦理會員卡？有什麼優惠？
+                </button>
+              </h2>
+              <div id="collapse-5" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                <div class="accordion-body">您只需在結帳時填寫基本資料即可免費入會。會員可享每筆消費 5% 紅利回饋，且生日當月享有 8 折優惠券乙張。</div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading-6">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse-6">
+                  Q6：商品購買後若有瑕疵，可以退換貨嗎？
+                </button>
+              </h2>
+              <div id="collapse-6" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                <div class="accordion-body">請於購買後 7 日內，憑原始發票與完整包裝商品至櫃檯辦理。若因人為因素損壞，恕無法提供退換貨服務。</div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading-7">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse-7">
+                  Q7：是否有提供禮品包裝服務？
+                </button>
+              </h2>
+              <div id="collapse-7" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                <div class="accordion-body">有的，我們提供精緻禮盒包裝服務，單筆滿 1000 元免費包裝，未滿額則需酌收 50 元工本費。</div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading-8">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse-8">
+                  Q8：是否可以預先透過電話或官網保留商品？
+                </button>
+              </h2>
+              <div id="collapse-8" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                <div class="accordion-body">可以，商品可保留 48 小時。若超過時間未前來取貨且未主動聯繫，系統將自動取消保留名額。</div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading-9">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse-9">
+                  Q9：店家有提供團體訂購或企業採購優惠嗎？
+                </button>
+              </h2>
+              <div id="collapse-9" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                <div class="accordion-body">單筆購買相同品項超過 50 件，可享專案批發價。請透過電子郵件連繫我們的採購部門洽詢。</div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading-10">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse-10">
+                  Q10：如果遇到商品缺貨，可以預購嗎？
+                </button>
+              </h2>
+              <div id="collapse-10" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                <div class="accordion-body">大部分熱銷商品均開放預購，預計到貨時間約為 7-14 個工作天。到貨後我們會主動以簡訊通知您。</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+  <!-- footer -->
+  <footer class="bg-secondary text-white pt-5 pb-3">
+    <div class="container">
+      <div class="row text-center text-md-start">
+        <div class="col-12 col-md-3 mb-5 mb-md-0">
+          <img src="https://bs-intl.jp/wp-prod/wp-content/themes/bs-intl/dist/assets/img/logo-320272bc.webp" alt="Logo"
+            style="height: 80px" class="mb-2" />
+          <h4 class="fw-bold">B's Int'l.</h4>
+        </div>
+
+        <div class="col-12 col-md-3 mb-5 mb-md-0">
+          <h5 class="fw-bold mb-3">OUR BUSINESS</h5>
+          <ul class="list-unstyled">
+            <li>FASHION</li>
+            <li>SPORTS</li>
+            <li>ART</li>
+            <li>LIFESTYLE</li>
+          </ul>
+        </div>
+
+        <div class="col-12 col-md-3 mb-5 mb-md-0">
+          <h5 class="fw-bold mb-3">BRAND LIST</h5>
+          <ul class="list-unstyled">
+            <li>ONLINE STORE</li>
+            <li>COMPANT</li>
+            <li>RECRUIT</li>
+            <li>NEWS</li>
+          </ul>
+        </div>
+
+        <div class="col-12 col-md-3 mb-5 mb-md-0">
+          <h5 class="fw-bold mb-3">CONTACT</h5>
+          <ul class="list-unstyled">
+            <li>PRIVACY POLICY</li>
+            <li>SITE POLICY</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="mt-4 mb-4 border-light opacity-25" />
+      <div class="row">
+        <div class="col-12 text-center">
+          <p class="small mb-0 opacity-75">
+            Copyright (c) B's Int'l All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 返回頂層按鈕 -->
+  <a href="#"
+    class="btn btn-dark position-fixed bottom-0 end-0 m-4 shadow-lg rounded-circle d-flex align-items-center justify-content-center"
+    style="width: 50px; height: 50px; z-index: 9999">
+    <span class="fw-bold">↑</span>
+  </a>
+  <!-- bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"></script>
+
+  <!-- OwlCarousel -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+  <!-- JQuery -->
+  <script>
+    $(function () {
+      $(".owl-carousel").owlCarousel({
+        items: 3, // 一次顯示 3 張
+        margin: 10, // 圖片之間的間距 (像素)
+        loop: true, // 啟動無限循環
+        autoplay: true, // 如果你要它自動動起來的話
+        autoplayTimeout: 3000, // 自動輪播間隔
+        nav: false, // 隱藏左右箭頭 (Previous/Next)
+        dots: false, // 隱藏下方圓點 (Pagination)
+        responsive: {
+          // 螢幕寬度 0 ~ 767px
+          0: {
+            items: 1,
+          },
+          // 螢幕寬度 768px 以上
+          768: {
+            items: 3,
+          },
+        },
+      });
+    });
+  </script>
+</body>
+
+</html>

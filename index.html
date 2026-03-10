@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>首頁</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
+
+  <!-- OwlCarousel -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+
+  <style>
+    /* 導覽列 */
+    /* 1. 全螢幕輪播設定 */
+    .carousel,
+    .carousel-inner,
+    .carousel-item,
+    .carousel-item img {
+      height: 100vh;
+    }
+
+    .carousel-item img {
+      object-fit: cover;
+    }
+
+    /* 2. 導覽列自定義 */
+    .custom-navbar {
+      /* background-color: transparent !important;  */
+      /* 背景完全透明 */
+      padding: 20px 0;
+      /* 增加一點上下間距，讓它更大氣 */
+      transition: 0.3s;
+      /* 之後若想做滾動變色可以有過渡效果 */
+    }
+
+    /* 3. 調整文字大小與顏色 */
+    .custom-navbar .nav-link {
+      color: #333 !important;
+      /* 深灰色文字 */
+      font-size: 1.25rem;
+      /* 字體變大 (約 20px) */
+      font-weight: 500;
+      /* 加粗一點點 */
+    }
+
+    /* 調整 Logo 大小與按鈕顏色 */
+    .custom-navbar .navbar-brand img {
+      height: 50px;
+      /* Logo 也跟著放大一點 */
+    }
+
+    /* 漢堡選單按鈕顏色*/
+    .navbar-toggler {
+      border-color: rgba(227, 24, 24, 0.1);
+      border-width: 3px !important;
+      /* 改為 3px 或是你想要的寬度 */
+      border-radius: 8px;
+      /* 調整圓角程度，0 為直角 */
+    }
+
+    /* 把大輪播長條形改成圓形 */
+    .carousel-indicators [data-bs-target] {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      /* 變成圓形 */
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    /* 四宮格圖 */
+    .custom-ratio {
+      /* 電腦版四張並排時，可以用 3:4 或 9:16 的長方比例 */
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      transition: filter 0.3s ease;
+      filter: brightness(0.8);
+    }
+
+    /* 當寬度小於 768px (手機版) */
+    .custom-ratio {
+      /* 2x2 佈局下，建議 16:9 或是 2:1 會比較好看 */
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      transition: filter 0.6s ease;
+      filter: brightness(0.85);
+    }
+
+    /* 手機版 (寬度 < 768px) */
+    @media (max-width: 767.98px) {
+      .custom-ratio {
+        /* 變成直向 100% 時，比例可以稍微調高一點點 */
+        aspect-ratio: 4 / 3;
+      }
+    }
+
+    .item-link:hover .custom-ratio {
+      filter: brightness(1.1);
+      cursor: pointer;
+    }
+
+    /* 只有在電腦版 (992px以上) 啟用 Hover 功能 */
+    @media (min-width: 992px) {
+      .nav-item.dropdown .dropdown-menu {
+        display: block;
+        /* 預設維持 block 但隱藏 */
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.3s ease;
+        transform: translateY(10px);
+        /* 稍微往下移一點點 */
+      }
+
+      .nav-item.dropdown:hover .dropdown-menu {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+        /* 移回原位，產生浮現感 */
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <!-- 導覽列 -->
+    <nav class="navbar navbar-expand-lg custom-navbar navbar-light fixed-top bg-secondary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="./index.html">
+          <img style="height: 40px; width: auto"
+            src="https://bs-intl.jp/wp-prod/wp-content/themes/bs-intl/dist/assets/img/logo-320272bc.webp" />
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                OUR BUSINESS
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item" href="./fashion.html">FASHION</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="./sports.html">SPORTS</a>
+                </li>
+                <li><a class="dropdown-item" href="./art.html">ART</a></li>
+                <li><a class="dropdown-item" href="./style.html">LIFESTYLE</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="./brand-list.html">BRAND LIST</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./product-list.html">ONLINE STORE</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./company.html">COMPANY</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./faq.html">FAQ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./contact.html">CONTACT</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./sign-in/index.html" style="color: rgb(150, 3, 3) !important;">管理系統</a>
+            </li>
+          </ul>
+
+          <div class="ms-lg-auto mt-2 mt-lg-0">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                多國語言
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#">繁體中文</a></li>
+                <li><a class="dropdown-item" href="#">簡體中文</a></li>
+                <li><a class="dropdown-item" href="#">英文</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 大輪播 -->
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="0" class="active"
+          aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="1"
+          aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="2"
+          aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="https://picsum.photos/id/481/1920/1080" class="d-block w-100" alt="圖1" />
+        </div>
+        <div class="carousel-item">
+          <img src="https://picsum.photos/id/482/1920/1080" class="d-block w-100" alt="圖2" />
+        </div>
+        <div class="carousel-item">
+          <img src="https://picsum.photos/id/483/1920/1080" class="d-block w-100" alt="圖3" />
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <!-- 三輪播背景 -->
+    <div class="py-5">
+      <!-- 三輪播上文字 -->
+      <div class="container-fluid">
+        <div class="row justify-content-between align-items-cente">
+          <div class="col-6">
+            <p class="fs-1 fw-bold">NEWS</p>
+          </div>
+          <div class="col-6 fs-4 text-end">
+            <a href="#" class="text-dark text-decoration-none fw-bold">VIEWMORE ></a>
+          </div>
+        </div>
+      </div>
+      <!-- 三輪播本體 -->
+      <div class="container-fluid mt-5 mb-5">
+        <div class="row">
+          <div class="col-12 d-flex">
+            <div class="owl-carousel owl-theme">
+              <div class="item">
+                <img src="https://picsum.photos/id/434/600/400" alt="" />
+                <p class="mb-0 text-secondary small">2020.02.02</p>
+                <p>圖片簡介:圖片大小600*400</p>
+              </div>
+              <div class="item">
+                <img src="https://picsum.photos/id/435/600/400" alt="" />
+                <p class="mb-0 text-secondary small">2020.02.02</p>
+                <p>圖片簡介:圖片大小600*400</p>
+              </div>
+              <div class="item">
+                <img src="https://picsum.photos/id/436/600/400" alt="" />
+                <p class="mb-0 text-secondary small">2020.02.02</p>
+                <p>圖片簡介:圖片大小600*400</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 四宮格圖 -->
+    <div class="container-fluid p-0">
+      <div class="row g-0">
+        <div class="col-12 col-md-6">
+          <a href="#" class="item-link position-relative d-block">
+            <img src="https://picsum.photos/id/437/1920/1080" class="w-100 d-block object-fit-cover custom-ratio" />
+            <div class="position-absolute top-50 start-50 translate-middle text-white fw-bold fs-2">
+              FASHION
+            </div>
+          </a>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <a href="#" class="item-link position-relative d-block">
+            <img src="https://picsum.photos/id/437/1920/1080" class="w-100 d-block object-fit-cover custom-ratio" />
+            <div class="position-absolute top-50 start-50 translate-middle text-white fw-bold fs-2">
+              SPORTS
+            </div>
+          </a>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <a href="#" class="item-link position-relative d-block">
+            <img src="https://picsum.photos/id/439/1920/1080" class="w-100 d-block object-fit-cover custom-ratio" />
+            <div class="position-absolute top-50 start-50 translate-middle text-white fw-bold fs-2">
+              ART
+            </div>
+          </a>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <a href="#" class="item-link position-relative d-block">
+            <img src="https://picsum.photos/id/440/1920/1080" class="w-100 d-block object-fit-cover custom-ratio" />
+            <div class="position-absolute top-50 start-50 translate-middle text-white fw-bold fs-2 text-nowrap">
+              LIFE STYLE
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 三輪播上文字2 -->
+    <div class="bg-light py-5">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <p class="fs-1 fw-bold">BRANDS</p>
+          </div>
+        </div>
+      </div>
+      <!-- 三輪播2 -->
+      <div class="container-fluid mt-1 mb-5">
+        <div class="row">
+          <div class="col-12 d-flex">
+            <div class="owl-carousel owl-theme">
+              <div class="item">
+                <img src="https://picsum.photos/id/501/600/400" alt="" />
+              </div>
+              <div class="item">
+                <img src="https://picsum.photos/id/502/600/400" alt="" />
+              </div>
+              <div class="item">
+                <img src="https://picsum.photos/id/503/600/400" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 三輪播2 下方more -->
+      <div class="container d-flex justify-content-center mb-3">
+        <div class="row">
+          <div class="col-12">
+            <button type="button" class="btn btn-secondary btn-lg">
+              VIEW MORE
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 功能介紹區塊1 -->
+    <section class="feature-section py-5 mb-3 mt-3">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-12 col-md-6 mb-4 mb-md-0">
+            <h2 class="display-5 fw-bold mb-3">ONLINE STORE</h2>
+            <p class="fs-5 text-secondary mb-4">
+              這裡放你的功能介紹內文。這是一段描述品牌故事或產品特色的文字，
+              建議字數適中，保持視覺上的呼吸感。
+            </p>
+            <a href="#" class="btn btn-outline-dark btn-lg px-4 fw-bold">VIEW MORE</a>
+          </div>
+
+          <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+            <div class="image-wrapper w-100">
+              <img src="https://picsum.photos/id/504/600/400" alt="Feature Image" class="img-fluid rounded shadow" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 功能介紹區塊2 -->
+    <section class="feature-section py-5 mb-3 mt-3 bg-light">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-12 col-md-6 mb-4 mb-md-0">
+            <h2 class="display-5 fw-bold mb-3">ONLINE STORE</h2>
+            <p class="fs-5 text-secondary mb-4">
+              這裡放你的功能介紹內文。這是一段描述品牌故事或產品特色的文字，
+              建議字數適中，保持視覺上的呼吸感。
+            </p>
+            <a href="#" class="btn btn-outline-dark btn-lg px-4 fw-bold">VIEW MORE</a>
+          </div>
+
+          <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+            <div class="image-wrapper w-100">
+              <img src="https://picsum.photos/id/505/600/400" alt="Feature Image" class="img-fluid rounded shadow" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- footer -->
+  <footer class="bg-secondary text-white pt-5 pb-3">
+    <div class="container">
+      <div class="row text-center text-md-start">
+        <div class="col-12 col-md-3 mb-5 mb-md-0">
+          <img src="https://bs-intl.jp/wp-prod/wp-content/themes/bs-intl/dist/assets/img/logo-320272bc.webp" alt="Logo"
+            style="height: 80px" class="mb-2" />
+          <h4 class="fw-bold">B's Int'l.</h4>
+        </div>
+
+        <div class="col-12 col-md-3 mb-5 mb-md-0">
+          <h5 class="fw-bold mb-3">OUR BUSINESS</h5>
+          <ul class="list-unstyled">
+            <li>FASHION</li>
+            <li>SPORTS</li>
+            <li>ART</li>
+            <li>LIFESTYLE</li>
+          </ul>
+        </div>
+
+        <div class="col-12 col-md-3 mb-5 mb-md-0">
+          <h5 class="fw-bold mb-3">BRAND LIST</h5>
+          <ul class="list-unstyled">
+            <li>ONLINE STORE</li>
+            <li>COMPANT</li>
+            <li>RECRUIT</li>
+            <li>NEWS</li>
+          </ul>
+        </div>
+
+        <div class="col-12 col-md-3 mb-5 mb-md-0">
+          <h5 class="fw-bold mb-3">CONTACT</h5>
+          <ul class="list-unstyled">
+            <li>PRIVACY POLICY</li>
+            <li>SITE POLICY</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="mt-4 mb-4 border-light opacity-25" />
+      <div class="row">
+        <div class="col-12 text-center">
+          <p class="small mb-0 opacity-75">
+            Copyright (c) B's Int'l All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 返回頂層按鈕 -->
+  <a href="#"
+    class="btn btn-dark position-fixed bottom-0 end-0 m-4 shadow-lg rounded-circle d-flex align-items-center justify-content-center"
+    style="width: 50px; height: 50px; z-index: 9999">
+    <span class="fw-bold">↑</span>
+  </a>
+  <!-- bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"></script>
+
+  <!-- OwlCarousel -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+  <!-- JQuery -->
+  <script>
+    $(function () {
+      $(".owl-carousel").owlCarousel({
+        items: 3, // 一次顯示 3 張
+        margin: 10, // 圖片之間的間距 (像素)
+        loop: true, // 啟動無限循環
+        autoplay: true, // 如果你要它自動動起來的話
+        autoplayTimeout: 3000, // 自動輪播間隔
+        nav: false, // 隱藏左右箭頭 (Previous/Next)
+        dots: false, // 隱藏下方圓點 (Pagination)
+        responsive: {
+          // 螢幕寬度 0 ~ 767px
+          0: {
+            items: 1,
+          },
+          // 螢幕寬度 768px 以上
+          768: {
+            items: 3,
+          },
+        },
+      });
+    });
+  </script>
+</body>
+
+</html>

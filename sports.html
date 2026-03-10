@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sports</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
+
+  <!-- OwlCarousel -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+
+  <style>
+    /* 導覽列 */
+    /* 1. 全螢幕輪播設定 */
+    .carousel,
+    .carousel-inner,
+    .carousel-item,
+    .carousel-item img {
+      height: 100vh;
+    }
+
+    .carousel-item img {
+      object-fit: cover;
+    }
+
+    /* 2. 導覽列自定義 */
+    .custom-navbar {
+      /* background-color: transparent !important;  */
+      /* 背景完全透明 */
+      padding: 20px 0;
+      /* 增加一點上下間距，讓它更大氣 */
+      transition: 0.3s;
+      /* 之後若想做滾動變色可以有過渡效果 */
+    }
+
+    /* 3. 調整文字大小與顏色 */
+    .custom-navbar .nav-link {
+      color: #333 !important;
+      /* 深灰色文字 */
+      font-size: 1.25rem;
+      /* 字體變大 (約 20px) */
+      font-weight: 500;
+      /* 加粗一點點 */
+    }
+
+    /* 調整 Logo 大小與按鈕顏色 */
+    .custom-navbar .navbar-brand img {
+      height: 50px;
+      /* Logo 也跟著放大一點 */
+    }
+
+    /* 漢堡選單按鈕顏色*/
+    .navbar-toggler {
+      border-color: rgba(227, 24, 24, 0.1);
+      border-width: 3px !important;
+      /* 改為 3px 或是你想要的寬度 */
+      border-radius: 8px;
+      /* 調整圓角程度，0 為直角 */
+    }
+
+    /* 把大輪播長條形改成圓形 */
+    .carousel-indicators [data-bs-target] {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      /* 變成圓形 */
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    /* 四宮格圖 */
+    .custom-ratio {
+      /* 電腦版四張並排時，可以用 3:4 或 9:16 的長方比例 */
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      transition: filter 0.3s ease;
+      filter: brightness(0.8);
+    }
+
+    /* 當寬度小於 768px (手機版) */
+    .custom-ratio {
+      /* 2x2 佈局下，建議 16:9 或是 2:1 會比較好看 */
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      transition: filter 0.6s ease;
+      filter: brightness(0.85);
+    }
+
+    /* 手機版 (寬度 < 768px) */
+    @media (max-width: 767.98px) {
+      .custom-ratio {
+        /* 變成直向 100% 時，比例可以稍微調高一點點 */
+        aspect-ratio: 4 / 3;
+      }
+    }
+
+    .item-link:hover .custom-ratio {
+      filter: brightness(1.1);
+      cursor: pointer;
+    }
+
+    /* 只有在電腦版 (992px以上) 啟用 Hover 功能 */
+    @media (min-width: 992px) {
+      .nav-item.dropdown .dropdown-menu {
+        display: block;
+        /* 預設維持 block 但隱藏 */
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.3s ease;
+        transform: translateY(10px);
+        /* 稍微往下移一點點 */
+      }
+
+      .nav-item.dropdown:hover .dropdown-menu {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+        /* 移回原位，產生浮現感 */
+      }
+    }
+
+    /* 導覽列背景 */
+    .page-header {
+      /* 設定高度：40vh 代表螢幕高度的 40%，可依需求調整如 400px */
+      height: 540px;
+
+      /* 關鍵：蓋版黑幕 + 背景圖片 */
+      /* linear-gradient 第一個 rgba 是黑幕顏色與透明度 (0.5 = 50% 透明) */
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("https://picsum.photos/id/680/1920/1080");
+
+      /* 背景圖優化設定 */
+      background-size: cover;
+      background-position: center;
+      background-attachment: scroll;
+      /* 若想做視差效果可改為 fixed */
+
+      /* 處理固定導覽列遮擋問題：因為 nav 有 fixed-top，這裡要推開導覽列的高度 */
+      padding-top: 90px;
+    }
+
+    .page-title {
+      font-size: 4rem;
+      /* 大標題尺寸 */
+      font-weight: 700;
+      /* 加粗 */
+      letter-spacing: 0.8rem;
+      /* 字母間距增加，展現時尚感 */
+      text-transform: uppercase;
+      /* 強制大寫 */
+    }
+
+    /* 手機版微調 */
+    @media (max-width: 768px) {
+      .page-header {
+        height: 300px;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        letter-spacing: 0.4rem;
+      }
+    }
+
+    /* 卡片式列表區塊 */
+    .object-fit-cover {
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    /* 模擬 hover-brightness 效果 */
+    .hover-brightness:hover .object-fit-cover {
+      transform: scale(1.05);
+      /* 輕微放大 */
+      filter: brightness(0.8);
+      /* 稍微變暗以突出文字或感覺 */
+    }
+
+    /* 移除卡片內的連結預設底線 */
+    .card-body a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <!-- 導覽列 -->
+    <nav class="navbar navbar-expand-lg custom-navbar navbar-light fixed-top bg-secondary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="./index.html">
+          <img style="height: 40px; width: auto"
+            src="https://bs-intl.jp/wp-prod/wp-content/themes/bs-intl/dist/assets/img/logo-320272bc.webp" />
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                OUR BUSINESS
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item" href="./fashion.html">FASHION</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="./sports.html">SPORTS</a>
+                </li>
+                <li><a class="dropdown-item" href="./art.html">ART</a></li>
+                <li><a class="dropdown-item" href="./style.html">LIFESTYLE</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="./brand-list.html">BRAND LIST</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./product-list.html">ONLINE STORE</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./company.html">COMPANY</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./faq.html">FAQ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./contact.html">CONTACT</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./sign-in/index.html" style="color: rgb(150, 3, 3) !important;">管理系統</a>
+            </li>
+          </ul>
+
+          <div class="ms-lg-auto mt-2 mt-lg-0">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                多國語言
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#">繁體中文</a></li>
+                <li><a class="dropdown-item" href="#">簡體中文</a></li>
+                <li><a class="dropdown-item" href="#">英文</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 導覽列背景 & FASHION字樣 -->
+    <section class="page-header d-flex align-items-center justify-content-center text-white">
+      <div class="container text-center">
+        <h1 class="page-title">SPORTS</h1>
+      </div>
+    </section>
+
+    <!-- 麵包屑 -->
+    <nav style="--bs-breadcrumb-divider: &quot;>&quot;" aria-label="breadcrumb">
+      <ol class="breadcrumb small d-flex ms-5">
+        <li class="breadcrumb-item">
+          <a href="../index.html" class="text-decoration-none text-secondary">Home</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">SPORTS</li>
+      </ol>
+    </nav>
+
+    <!-- 標題文字區塊1 -->
+    <section class="intro-section py-5 bg-white text-center">
+      <div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 250px">
+        <h2 class="fw-bold mb-4">Sports Business</h2>
+
+        <div class="intro-text">
+          <p class="mb-2 text-secondary">
+            Sports have always been a source of excitement for people. We
+            support a wide range of sports, including urban sports that have
+            developed as part of street culture, women's sports, and
+            parasports, as well as athletes and people who enjoy sports. We
+            also run skateboarding and dance schools where children can learn
+            while having fun.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 卡片式列表區塊 -->
+    <section class="py-5 bg-light">
+      <div class="container">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <div class="col">
+            <div class="card h-100 border-0 shadow-sm hover-brightness">
+              <div class="ratio ratio-4x3 overflow-hidden">
+                <img src="https://picsum.photos/id/431/800/600" class="card-img-top object-fit-cover" alt="ATHLETE" />
+              </div>
+              <div class="card-body p-4">
+                <h2 class="h5 fw-bold card-title">ATHLETE</h2>
+                <p class="card-text text-secondary mb-4">
+                  We support athletes who are active worldwide in a variety of
+                  sports, including urban sports such as BMX, skateboarding,
+                  and breaking. We contribute to creating an environment where
+                  athletes with diverse personalities can demonstrate their
+                  abilities and charm.
+                </p>
+
+                <button type="button" class="btn btn-dark">
+                  List of athletes
+                </button>
+                <a href="#" class="stretched-link"></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card h-100 border-0 shadow-sm hover-brightness">
+              <div class="ratio ratio-4x3 overflow-hidden">
+                <img src="https://picsum.photos/id/432/800/600" class="card-img-top object-fit-cover" alt="WE LEAGUE" />
+              </div>
+              <div class="card-body p-4">
+                <h2 class="h5 fw-bold card-title">WE LEAGUE</h2>
+                <p class="card-text text-secondary mb-4">
+                  X-girl has been a silver partner and official supplier of
+                  the WE League, Japan's first professional women's soccer
+                  league, since its opening in September 2021. We will
+                  co-create from the perspective of fashion and lifestyle the
+                  WE League's philosophy of "contributing to the realization
+                  and development of a society filled with diversity in dreams
+                  and lifestyles, where each individual can shine, through
+                  women's soccer and sports.
+                </p>
+                <button type="button" class="btn btn-dark">
+                  WE LEAGUE Article List
+                </button>
+                <a href="#" class="stretched-link"></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card h-100 border-0 shadow-sm hover-brightness">
+              <div class="ratio ratio-4x3 overflow-hidden">
+                <img src="https://picsum.photos/id/433/800/600" class="card-img-top object-fit-cover"
+                  alt="X-girl SPORTS" />
+              </div>
+              <div class="card-body p-4">
+                <h2 class="h5 fw-bold card-title">X-girl SPORTS</h2>
+                <p class="card-text text-secondary mb-4">
+                  In September 2024, we launched the sports line "X-girl
+                  SPORTS" for all women who love sports. It features
+                  functionality and silhouettes that support the performance
+                  of professional athletes. It's a new generation of
+                  sportswear that combines functionality and fashion for women
+                  who enjoy both fashion and sports in their own way.
+                </p>
+                <button type="button" class="btn btn-dark">
+                  Go to online site
+                </button>
+                <a href="#" class="stretched-link"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 四宮格圖 -->
+    <div class="container-fluid p-0">
+      <div class="row g-0">
+        <div class="col-12 col-md-6">
+          <a href="#" class="item-link position-relative d-block">
+            <img src="https://picsum.photos/id/434/800/600" class="w-100 d-block object-fit-cover custom-ratio" />
+            <div class="position-absolute top-50 start-50 translate-middle text-white fw-bold fs-2">
+              FASHION
+            </div>
+          </a>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <a href="#" class="item-link position-relative d-block">
+            <img src="https://picsum.photos/id/435/800/600" class="w-100 d-block object-fit-cover custom-ratio" />
+            <div class="position-absolute top-50 start-50 translate-middle text-white fw-bold fs-2">
+              SPORTS
+            </div>
+          </a>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <a href="#" class="item-link position-relative d-block">
+            <img src="https://picsum.photos/id/436/800/600" class="w-100 d-block object-fit-cover custom-ratio" />
+            <div class="position-absolute top-50 start-50 translate-middle text-white fw-bold fs-2">
+              ART
+            </div>
+          </a>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <a href="#" class="item-link position-relative d-block">
+            <img src="https://picsum.photos/id/437/800/600" class="w-100 d-block object-fit-cover custom-ratio" />
+            <div class="position-absolute top-50 start-50 translate-middle text-white fw-bold fs-2 text-nowrap">
+              LIFE STYLE
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+
+  <!-- footer -->
+  <footer class="bg-secondary text-white pt-5 pb-3">
+    <div class="container">
+      <div class="row text-center text-md-start">
+        <div class="col-12 col-md-3 mb-5 mb-md-0">
+          <img src="https://bs-intl.jp/wp-prod/wp-content/themes/bs-intl/dist/assets/img/logo-320272bc.webp" alt="Logo"
+            style="height: 80px" class="mb-2" />
+          <h4 class="fw-bold">B's Int'l.</h4>
+        </div>
+
+        <div class="col-12 col-md-3 mb-5 mb-md-0">
+          <h5 class="fw-bold mb-3">OUR BUSINESS</h5>
+          <ul class="list-unstyled">
+            <li>FASHION</li>
+            <li>SPORTS</li>
+            <li>ART</li>
+            <li>LIFESTYLE</li>
+          </ul>
+        </div>
+
+        <div class="col-12 col-md-3 mb-5 mb-md-0">
+          <h5 class="fw-bold mb-3">BRAND LIST</h5>
+          <ul class="list-unstyled">
+            <li>ONLINE STORE</li>
+            <li>COMPANT</li>
+            <li>RECRUIT</li>
+            <li>NEWS</li>
+          </ul>
+        </div>
+
+        <div class="col-12 col-md-3 mb-5 mb-md-0">
+          <h5 class="fw-bold mb-3">CONTACT</h5>
+          <ul class="list-unstyled">
+            <li>PRIVACY POLICY</li>
+            <li>SITE POLICY</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="mt-4 mb-4 border-light opacity-25" />
+      <div class="row">
+        <div class="col-12 text-center">
+          <p class="small mb-0 opacity-75">
+            Copyright (c) B's Int'l All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 返回頂層按鈕 -->
+  <a href="#"
+    class="btn btn-dark position-fixed bottom-0 end-0 m-4 shadow-lg rounded-circle d-flex align-items-center justify-content-center"
+    style="width: 50px; height: 50px; z-index: 9999">
+    <span class="fw-bold">↑</span>
+  </a>
+  <!-- bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"></script>
+
+  <!-- OwlCarousel -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+  <!-- JQuery -->
+  <script>
+    $(function () {
+      $(".owl-carousel").owlCarousel({
+        items: 3, // 一次顯示 3 張
+        margin: 10, // 圖片之間的間距 (像素)
+        loop: true, // 啟動無限循環
+        autoplay: true, // 如果你要它自動動起來的話
+        autoplayTimeout: 3000, // 自動輪播間隔
+        nav: false, // 隱藏左右箭頭 (Previous/Next)
+        dots: false, // 隱藏下方圓點 (Pagination)
+        responsive: {
+          // 螢幕寬度 0 ~ 767px
+          0: {
+            items: 1,
+          },
+          // 螢幕寬度 768px 以上
+          768: {
+            items: 3,
+          },
+        },
+      });
+    });
+  </script>
+</body>
+
+</html>
